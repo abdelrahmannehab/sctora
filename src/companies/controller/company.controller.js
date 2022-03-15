@@ -45,8 +45,23 @@ const getAllCompaniesHandlr = async (req,res)=>{
 // }
 
 
+const updateCompanyHandlr = async (req,res) => {
+   
+    const { companyName,email,password } = req.body;
+    try {
+        await Company.findByIdAndUpdate({_id : req.params.id},{ companyName,email,password  });
+        const updateCompanyHandlr = await Company.findOne({ _id : req.params.id });
+        res.json({ message: "updated success",data: updateCompanyHandlr.companyName });
 
-const addCompanyHandlr = async(req,res) => {
+    } catch (error) {
+        res.json({message : "Error" , error});
+    }
+
+}
+
+
+
+const addCompanyHandlr = async (req,res) => {
     const { companyName, email} =  req.body;
     try{
         
@@ -67,4 +82,6 @@ const addCompanyHandlr = async(req,res) => {
 module.exports = {
     getAllCompaniesHandlr,
     addCompanyHandlr,
+    updateCompanyHandlr,
+
 }
