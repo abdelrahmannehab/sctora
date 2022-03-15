@@ -56,7 +56,6 @@ const updateCompanyHandlr = async (req,res) => {
     } catch (error) {
         res.json({message : "Error" , error});
     }
-
 }
 
 
