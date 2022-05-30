@@ -26,23 +26,23 @@ const getAllCompaniesHandlr = async (req,res)=>{
    
 
 
-// const getCompanyByIdHandlr = async (req,res)=>{
-//     const {id} = req.params;
-//         try {
-//         const data = await Company.findOne({_id : id})
-//         if(data)
-//         {
-//             res.json({message : "success" , data});
-//         }else{
-//             res.json({message : "invalid id" });
-//         }
+const getCompanyByIdHandlr = async (req,res)=>{
+    const {id} = req.params;
+        try {
+        const data = await Company.findOne({_id : id})
+        if(data)
+        {
+            res.json({message : "success" , data});
+        }else{
+            res.json({message : "invalid id" });
+        }
         
     
-//     } catch (error) {
-//         res.json({message : "Error" , error});
-//     }
+    } catch (error) {
+        res.json({message : "Error" , error});
+    }
 
-// }
+}
 
 
 const updateCompanyHandlr = async (req,res) => {
