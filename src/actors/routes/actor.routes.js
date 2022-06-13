@@ -3,7 +3,7 @@ const { getAllActorsHandlr,
     updateActorHandlr
 } = require('../controller/actor.controller');
 
-const router = require('express').Router()
+const ActorRouter = require('express').Router()
 
 
 router.get("/actors", getAllActorsHandlr);
@@ -11,4 +11,4 @@ router.get("/actors/:id",getAllActorsHandlr);
 router.post("/actors",addActorHandlr);
 router.put("/actors/:id",updateActorHandlr);
 
-module.exports = router
+module.exports = ActorRouter
