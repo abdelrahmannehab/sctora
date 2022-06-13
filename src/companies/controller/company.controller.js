@@ -61,10 +61,10 @@ const updateCompanyHandlr = async (req,res) => {
 
 
 const addCompanyHandlr = async (req,res) => {
-    const { companyName, email} =  req.body;
+    const { CompanyName,CompanyManagerName,CompanyAddress,CompanyEmail,CompanyPassword} =  req.body;
     try{
         
-        const newComapny = new Company({companyName,email});
+        const newComapny = new Company({CompanyName,CompanyManagerName,CompanyAddress,CompanyEmail,CompanyPassword});
         const data = await newComapny.save();
         
         //const data = await Company.insertMany({companyName,email});
