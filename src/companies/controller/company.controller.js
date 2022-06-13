@@ -47,11 +47,11 @@ const getCompanyByIdHandlr = async (req,res)=>{
 
 const updateCompanyHandlr = async (req,res) => {
    
-    const { companyName,email,password } = req.body;
+    const { CompanyName,CompanyManagerName,CompanyAddress,CompanyEmail,CompanyPassword } = req.body;
     try {
-        await Company.findByIdAndUpdate({_id : req.params.id},{ companyName,email,password  });
+        await Company.findByIdAndUpdate({_id : req.params.id},{ CompanyName,CompanyManagerName,CompanyAddress,CompanyEmail,CompanyPassword  });
         const updateCompanyHandlr = await Company.findOne({ _id : req.params.id });
-        res.json({ message: "updated success",data: updateCompanyHandlr.companyName });
+        res.json({ message: "updated success",data: updateCompanyHandlr.CompanyName });
 
     } catch (error) {
         res.json({message : "Error" , error});
