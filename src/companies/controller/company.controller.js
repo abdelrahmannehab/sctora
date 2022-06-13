@@ -13,7 +13,7 @@ const getAllCompaniesHandlr = async (req,res)=>{
                 res.json({message : "invalid id" });
             }
         } else if (searchKey){
-           const data = await Company.find({companyName:{$regex : searchKey}})
+           const data = await Company.find({CompanyName:{$regex : searchKey}})
            res.json({message : "success" , data}); 
         } else {     
         const data = await Company.find({})
