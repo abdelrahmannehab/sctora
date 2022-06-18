@@ -14,7 +14,7 @@ app.use(express.json());
 
 
 dbConnection();
-app.use(CompanyRouter,ActorRouter);
+app.use(ActorRouter);
 
 
 app.get('/', (req, res) => res.send('Hello World!'));
