@@ -5,10 +5,10 @@ const { getAllActorsHandlr,
 
 const ActorRouter = require('express').Router()
 
-ActorRouter.get("/Actors",getAllActorsHandlr);
-ActorRouter.get("/Actor/:id",getAllActorsHandlr);
-ActorRouter.post("Actors",addActorHandlr);
-ActorRouter.put("/Actors/:id", updateActorHandlr);
+ActorRouter.get("/actors",getAllActorsHandlr);
+ActorRouter.get("/actor/:id",getAllActorsHandlr);
+ActorRouter.post("actors",addActorHandlr);
+ActorRouter.put("/actors/:id", updateActorHandlr);
 
 
 module.exports = ActorRouter
