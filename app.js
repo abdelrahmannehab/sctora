@@ -14,8 +14,8 @@ app.use(express.json());
 
 
 dbConnection();
-app.use(CompanyRouter);
-app.use(ActorRouter);
+app.use(CompanyRouter,ActorRouter);
+
 
 app.get('/', (req, res) => res.send('Hello World!'));
 app.listen(process.env.PORT || 5000)
