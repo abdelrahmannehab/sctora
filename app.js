@@ -2,7 +2,6 @@ const { json } = require('body-parser');
 const express = require('express');
 const dbConnection = require('./config/db');
 const ActorRouter = require('./src/actors/routes/actor.routes');
-
 const CompanyRouter = require('./src/companies/routes/company.routes');
 const app = express();
 
@@ -14,7 +13,7 @@ app.use(express.json());
 
 
 dbConnection();
-app.use(ActorRouter);
+app.use({CompanyRouter,ActorRouter});
 
 
 app.get('/', (req, res) => res.send('Hello World!'));
