@@ -9,7 +9,7 @@ const { getAllActorsHandlr,
 
 const router = require('express').Router()
 
-router.get("/actors/:id",getAllActorsHandlr);
+router.get("/actors",getAllActorsHandlr);
 router.get("/actor/:id",getAllActorsHandlr);
 router.post("/actors",addActorHandlr);
 router.post("/actorsRegistration",handlerValidation(ActorRegisterValidators),ActorRegistration);
