@@ -2,17 +2,10 @@ const Actor = require('../Model/actor.model');
 
 
 const getAllActorsHandlr = async (req,res)=>{
-    const id = req.params;
-    const {searchKey} = req.quary ;
+
+    const {searchKey} = req.query ;
     try {
-        if (id) {
-            const data = await Actor.findone({_id: id});
-            if(data) {
-                res.json({message : "success" , data});
-            }else{
-                res.json({message : "invalid id" });
-            }
-        } else if (searchKey){
+             if (searchKey){
                 const data = await Actor.find({userName:{$regex : searchKey}})
                 res.json({message: "Success" , data})
             } else {
@@ -20,7 +13,7 @@ const getAllActorsHandlr = async (req,res)=>{
                 res.json({message: "success" , data})
             }
     } catch (error) {
-        res.json({message: "Error!" , error})
+        res.json( error.message)
     }
 }
 
@@ -73,20 +66,20 @@ const ActorRegistration = async (req,res)=>{
         if(ActorPassword == ActorConfirmPassword)
         {
             const ActorExist = await Actor.findOne({ActorEmail})
-            console.log(ActorExist);
+            //console.log(ActorExist);
             if (ActorExist) {
-                res.status(StatusCodes.BAD_REQUEST).res.json({message:"in-valied Actor already exist"})
+               res.json({message:"in-valied Actor already exist"})
             } else {
-                const newActor = new Actor({UserName,ActorEmail,Gender,Age,Height,Weight,ActorPassword});
-                const savedActor = await newActor.save();
-                res.status(StatusCodes.CREATED).res.json({message:"Done" , newActor});
+                const newActor = new Actor({UserName,ActorEmail,Gender,Age,Height,Weight,ActorPassword });
+                //const savedActor = await newActor.save();
+                res.json({message:"Done" , newActor});
             }
         } else {
             res.json({message:"Password doesn't match"});
         }
         
    } catch (error) {
-    res.json({message : "Error" , error});
+    res.json(error.message);
    }
 }
 
@@ -104,7 +97,7 @@ const ActorLogin = async (req,res)=>{
             res.json({message:"Actor doesn't exist"})
         }
     } catch (error) {
-        res.json({message : "Error" , error});
+        res.json( error.message);
     }
 }
 

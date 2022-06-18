@@ -9,8 +9,7 @@ const actorSchema = new Schema ({
     Age: {type: String , required: true},
     Weight: {type: String , required: true},
     Height: {type: String , required: true},
-    ActorPassword: {type: String , required: true},
-    
+    ActorPassword: {type: String , required: true}
 },{
     timestamps: true
 });

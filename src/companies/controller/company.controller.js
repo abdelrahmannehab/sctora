@@ -93,11 +93,11 @@ const CompanyRegistration = async (req,res)=>{
             const CompanyExist = await Company.findOne({CompanyEmail})
             console.log(CompanyExist);
             if (CompanyExist) {
-                res.status(StatusCodes.BAD_REQUEST).res.json({message:"in-valied Company already exist"}) 
+                res.json({message:"in-valied Company already exist"}) 
             } else {
                 const newComapny = new Company({CompanyName,CompanyManagerName,CompanyAddress,CompanyEmail,CompanyPassword});
-                const savedCompany = await newComapny.save();
-                res.status(StatusCodes.CREATED).res.json({message:"Done" , newComapny});
+                //const savedCompany = await newComapny.save();
+               res.json({message:"Done" , newComapny});
             }
         } else {
             res.json({message:"Password doesn't match"});
