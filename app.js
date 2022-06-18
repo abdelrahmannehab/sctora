@@ -5,7 +5,7 @@ const dbConnection = require('./config/db');
 const ActorRouter = require('./src/actors/routes/actor.routes');
 const CompanyRouter = require('./src/companies/routes/company.routes');
 const app = express();
-const port = process.env.port
+const port = process.env.PORT
 
 
 
