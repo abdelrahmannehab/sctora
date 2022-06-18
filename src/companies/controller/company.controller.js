@@ -1,5 +1,13 @@
+const Actor = require("../../actors/Model/actor.model");
 const Company = require("../Model/company.model");
 const companySchema = require("../Schema/company.schema");
+
+const {
+	ReasonPhrases,
+	StatusCodes,
+	getReasonPhrase,
+	getStatusCode,
+} = require('http-status-codes') ;
 
 const getAllCompaniesHandlr = async (req,res)=>{
     const {id} = req.params;
@@ -50,7 +58,7 @@ const updateCompanyHandlr = async (req,res) => {
    
     const { CompanyName,CompanyManagerName,CompanyAddress,CompanyEmail,CompanyPassword } = req.body;
     try {
-        await Company.findByIdAndUpdate({_id : req.params.id},{ CompanyName,CompanyManagerName,CompanyAddress,CompanyEmail,CompanyPassword  });
+        await Company.findByIdAndUpdate({_id : req.params.id},{ CompanyName,CompanyManagerName,CompanyAddress,CompanyEmail,CompanyPassword  },{new:true});
         const updateCompanyHandlr = await Company.findOne({ _id : req.params.id });
         res.json({ message: "updated success",data: updateCompanyHandlr.CompanyName });
 
@@ -85,21 +93,39 @@ const CompanyRegistration = async (req,res)=>{
             const CompanyExist = await Company.findOne({CompanyEmail})
             console.log(CompanyExist);
             if (CompanyExist) {
-                res.json({message:"in-valied Company already exist"})
+                res.status(StatusCodes.BAD_REQUEST).res.json({message:"in-valied Company already exist"}) 
             } else {
                 const newComapny = new Company({CompanyName,CompanyManagerName,CompanyAddress,CompanyEmail,CompanyPassword});
                 const savedCompany = await newComapny.save();
-                res.json({message:"Done" , newComapny});
+                res.status(StatusCodes.CREATED).res.json({message:"Done" , newComapny});
             }
         } else {
             res.json({message:"Password doesn't match"});
         }
-        
+
    } catch (error) {
     res.json({message : "Error" , error});
    }
    
+}
 
+const CompanyLogin = async (req,res)=>{
+    const {CompanyEmail,CompanyPassword} = req.body;
+    const CompanyExist = await Company.findOne({CompanyEmail})
+
+    try {
+        if (CompanyExist) {
+            if (CompanyExist.CompanyPassword == CompanyPassword) {
+                res.status(StatusCodes.OK).res.json({message:"Done"})
+            }else{
+                res.status(StatusCodes.FORBIDDEN).res.json({message:"in-valid password", statusmessage:getReasonPhrase(StatusCodes.FORBIDDEN)}) 
+            }
+        } else {
+            res.json({message:"Company doesn't exist"})
+        }
+    } catch (error) {
+        res.json({message : "Error" , error});
+    }
 }
 
 
@@ -110,4 +136,5 @@ module.exports = {
     addCompanyHandlr,
     updateCompanyHandlr,
     CompanyRegistration,
+    CompanyLogin,
 }

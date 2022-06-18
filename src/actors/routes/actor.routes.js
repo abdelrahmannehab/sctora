@@ -1,16 +1,20 @@
+const handlerValidation = require('../../../middlewear/validation');
+const { ActorRegisterValidators, ActorLoginValidators, ActorUpdateValidators } = require('../actor.validation');
 const { getAllActorsHandlr,
         updateActorHandlr,
         addActorHandlr,
-        ActorRegistration
+        ActorRegistration,
+        ActorLogin
     } = require('../controller/actor.controller')
 
-const ActorRouter = require('express').Router()
+const router = require('express').Router()
 
-ActorRouter.get("/actors",getAllActorsHandlr);
-ActorRouter.get("/actor/:id",getAllActorsHandlr);
-ActorRouter.post("actors",addActorHandlr);
-ActorRouter.post("/actorsRegistration",ActorRegistration);
-ActorRouter.put("/actors/:id", updateActorHandlr);
+router.get("/actors",getAllActorsHandlr);
+router.get("/actor/:id",getAllActorsHandlr);
+router.post("actors",addActorHandlr);
+router.post("/actorsRegistration",handlerValidation(ActorRegisterValidators),ActorRegistration);
+router.post("/actorsLogin",handlerValidation(ActorLoginValidators),ActorLogin);
+router.patch("/actors/:id", handlerValidation(ActorUpdateValidators),updateActorHandlr);
 
 
-module.exports = ActorRouter
+module.exports = router

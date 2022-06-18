@@ -45,7 +45,7 @@ const getActorByIdHandlr = async (req,res)=>{
 const updateActorHandlr = async (req,res)=>{
     const {UserName,ActorEmail,Gender,Age,Height,Weight,ActorPassword} = req.body;
     try {
-        await Actor.findByIdAndUpdate({_id : req.params.id}, {UserName,ActorEmail,Gender,Age,Height,Weight,ActorPassword});
+        await Actor.findByIdAndUpdate({_id : req.params.id}, {UserName,ActorEmail,Gender,Age,Height,Weight,ActorPassword},{new:true});
         const updateActorHandlr = await Actor.findOne({ _id : req.params.id });
         res.json({message:"Updated Success" , data: updateActorHandlr.UserName});
 
@@ -75,11 +75,11 @@ const ActorRegistration = async (req,res)=>{
             const ActorExist = await Actor.findOne({ActorEmail})
             console.log(ActorExist);
             if (ActorExist) {
-                res.json({message:"in-valied Actor already exist"})
+                res.status(StatusCodes.BAD_REQUEST).res.json({message:"in-valied Actor already exist"})
             } else {
                 const newActor = new Actor({UserName,ActorEmail,Gender,Age,Height,Weight,ActorPassword});
                 const savedActor = await newActor.save();
-                res.json({message:"Done" , newActor});
+                res.status(StatusCodes.CREATED).res.json({message:"Done" , newActor});
             }
         } else {
             res.json({message:"Password doesn't match"});
@@ -88,14 +88,33 @@ const ActorRegistration = async (req,res)=>{
    } catch (error) {
     res.json({message : "Error" , error});
    }
-   
-
 }
+
+const ActorLogin = async (req,res)=>{
+    const {ActorEmail,ActorPassword} = req.body;
+    const ActorExist = await Actor.findOne({ActorEmail})
+    try {
+        if (ActorExist) {
+            if (ActorExist.ActorPassword == ActorPassword) {
+                res.status(StatusCodes.OK).res.json({message:"Done"})
+            }else{
+                res.status(StatusCodes.FORBIDDEN).res.json({message:"in-valid password", statusmessage:getReasonPhrase(StatusCodes.FORBIDDEN)})
+            }
+        } else {
+            res.json({message:"Actor doesn't exist"})
+        }
+    } catch (error) {
+        res.json({message : "Error" , error});
+    }
+}
+
+
 
 
 module.exports = {
     getAllActorsHandlr,
     updateActorHandlr,
     addActorHandlr,
-    ActorRegistration
+    ActorRegistration,
+    ActorLogin,
 }

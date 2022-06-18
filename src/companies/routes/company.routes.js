@@ -1,16 +1,20 @@
+const handlerValidation = require('../../../middlewear/validation');
+const { CompanyRegisterValidators, CompanyLoginValidators, CompanyUpdateValidators } = require('../company.validation');
 const { getAllCompaniesHandlr,
         addCompanyHandlr,
         updateCompanyHandlr,
-        CompanyRegistration
+        CompanyRegistration,
+        CompanyLogin
     } = require('../controller/company.controller');
 
-const CompanyRouter = require('express').Router()
+const router = require('express').Router()
 
 
-CompanyRouter.get("/companies", getAllCompaniesHandlr);
-CompanyRouter.get("/companies/:id",getAllCompaniesHandlr);
-CompanyRouter.post("/companies",addCompanyHandlr);
-CompanyRouter.post("/CompaniesRegistration",CompanyRegistration);
-CompanyRouter.put("/companies/:id",updateCompanyHandlr);
+router.get("/companies", getAllCompaniesHandlr);
+router.get("/companies/:id",getAllCompaniesHandlr);
+router.post("/companies",addCompanyHandlr);
+router.post("/CompaniesRegistration",handlerValidation(CompanyRegisterValidators),CompanyRegistration);
+router.post("/CompaniesLogin",handlerValidation(CompanyLoginValidators),CompanyLogin);
+router.patch("/companies/:id",handlerValidation(CompanyUpdateValidators),updateCompanyHandlr);
 
-module.exports = CompanyRouter
+module.exports = router

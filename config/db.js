@@ -1,12 +1,14 @@
 const mongoose = require("mongoose");
 
 
-const dbConnection = () => mongoose.connect('mongodb+srv://abdelrahman:Mm01274098137@cluster0.olod5.mongodb.net/testsctora').then((result)=>{
-    console.log("db connected");
+const dbConnection = async() =>{
+    
+    return await mongoose.connect(process.env.connection_String ).then((result)=>{
+    console.log("db connected")
 }).catch((err)=>{
     console.log("db not connected" , err);
 })
-
+}
 
 
 
