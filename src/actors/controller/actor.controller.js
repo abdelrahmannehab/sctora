@@ -66,8 +66,36 @@ const addActorHandlr = async (req,res) =>{
     }
 }
 
+const ActorRegistration = async (req,res)=>{
+    const { UserName,ActorEmail,Gender,Age,Height,Weight,ActorPassword,ActorConfirmPassword  } = req.body;
+   
+   try {
+        if(ActorPassword == ActorConfirmPassword)
+        {
+            const ActorExist = await Actor.findOne({ActorEmail})
+            console.log(ActorExist);
+            if (ActorExist) {
+                res.json({message:"in-valied Actor already exist"})
+            } else {
+                const newActor = new Actor({UserName,ActorEmail,Gender,Age,Height,Weight,ActorPassword});
+                const savedActor = await newActor.save();
+                res.json({message:"Done" , newActor});
+            }
+        } else {
+            res.json({message:"Password doesn't match"});
+        }
+        
+   } catch (error) {
+    res.json({message : "Error" , error});
+   }
+   
+
+}
+
+
 module.exports = {
     getAllActorsHandlr,
     updateActorHandlr,
-    addActorHandlr
+    addActorHandlr,
+    ActorRegistration
 }

@@ -1,4 +1,5 @@
-const Company = require("../Model/company.model")
+const Company = require("../Model/company.model");
+const companySchema = require("../Schema/company.schema");
 
 const getAllCompaniesHandlr = async (req,res)=>{
     const {id} = req.params;
@@ -75,6 +76,32 @@ const addCompanyHandlr = async (req,res) => {
     }
 }
 
+const CompanyRegistration = async (req,res)=>{
+    const { CompanyName,CompanyManagerName,CompanyAddress,CompanyEmail,CompanyPassword,CompanyConfirmPassword  } = req.body;
+   
+   try {
+        if(CompanyPassword == CompanyConfirmPassword)
+        {
+            const CompanyExist = await Company.findOne({CompanyEmail})
+            console.log(CompanyExist);
+            if (CompanyExist) {
+                res.json({message:"in-valied Company already exist"})
+            } else {
+                const newComapny = new Company({CompanyName,CompanyManagerName,CompanyAddress,CompanyEmail,CompanyPassword});
+                const savedCompany = await newComapny.save();
+                res.json({message:"Done" , newComapny});
+            }
+        } else {
+            res.json({message:"Password doesn't match"});
+        }
+        
+   } catch (error) {
+    res.json({message : "Error" , error});
+   }
+   
+
+}
+
 
 
 
@@ -82,5 +109,5 @@ module.exports = {
     getAllCompaniesHandlr,
     addCompanyHandlr,
     updateCompanyHandlr,
-
+    CompanyRegistration,
 }

@@ -8,12 +8,10 @@ const companySchema = new Schema({
     CompanyEmail : {type: String, required: true,unique:true},
     CompanyPassword : {type: String, required: true},
     
+    
 
 },{
     timestamps: true
 });
-
-
-
 
 module.exports = companySchema;

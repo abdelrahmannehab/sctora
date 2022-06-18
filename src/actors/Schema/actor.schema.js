@@ -10,6 +10,7 @@ const actorSchema = new Schema ({
     Weight: {type: String , required: true},
     Height: {type: String , required: true},
     ActorPassword: {type: String , required: true},
+    
 },{
     timestamps: true
 });
