@@ -118,9 +118,9 @@ const CompanyLogin = async (req,res)=>{
     try {
         if (CompanyExist) {
             if (CompanyExist.CompanyPassword == CompanyPassword) {
-                res.status(StatusCodes.OK).res.json({message:"Done"})
+                res.json({message:"Done"})
             }else{
-                res.status(StatusCodes.FORBIDDEN).res.json({message:"in-valid password", statusmessage:getReasonPhrase(StatusCodes.FORBIDDEN)}) 
+                res.json({message:"in-valid password"}) 
             }
         } else {
             res.json({message:"Company doesn't exist"})

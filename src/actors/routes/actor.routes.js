@@ -2,7 +2,7 @@ const handlerValidation = require('../../../middlewear/validation');
 const { ActorRegisterValidators, ActorLoginValidators, ActorUpdateValidators } = require('../actor.validation');
 const { getAllActorsHandlr,
         updateActorHandlr,
-        addActorHandlr,
+        //addActorHandlr,
         ActorRegistration,
         ActorLogin
     } = require('../controller/actor.controller')

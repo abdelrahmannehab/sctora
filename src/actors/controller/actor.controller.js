@@ -92,9 +92,9 @@ const ActorLogin = async (req,res)=>{
     try {
         if (ActorExist) {
             if (ActorExist.ActorPassword == ActorPassword) {
-                res.status(StatusCodes.OK).res.json({message:"Done"})
+                res.json({message:"Done"})
             }else{
-                res.status(StatusCodes.FORBIDDEN).res.json({message:"in-valid password", statusmessage:getReasonPhrase(StatusCodes.FORBIDDEN)})
+                res.json({message:"in-valid password"})
             }
         } else {
             res.json({message:"Actor doesn't exist"})

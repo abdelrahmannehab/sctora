@@ -1,7 +1,7 @@
 const handlerValidation = require('../../../middlewear/validation');
 const { CompanyRegisterValidators, CompanyLoginValidators, CompanyUpdateValidators } = require('../company.validation');
 const { getAllCompaniesHandlr,
-        addCompanyHandlr,
+        //addCompanyHandlr,
         updateCompanyHandlr,
         CompanyRegistration,
         CompanyLogin
