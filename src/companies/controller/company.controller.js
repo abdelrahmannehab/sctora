@@ -118,9 +118,9 @@ const CompanyLogin = async (req,res)=>{
     try {
         if (CompanyExist) {
 
-            const originalText = CryptoJS.AES.decrypt(CompanyExist.CompanyPassword , 'secret key 123').toString(CryptoJS.enc.Utf8);
+            const DBConvertpassword = CryptoJS.AES.decrypt(CompanyExist.CompanyPassword , 'secret key 123').toString(CryptoJS.enc.Utf8);
       
-            if (originalText == CompanyPassword) {
+            if (DBConvertpassword == CompanyPassword) {
                 res.json({message:"Done"})
             }else{
                 res.json({message:"in-valid password"}) 
