@@ -73,7 +73,7 @@ const ActorRegistration = async (req,res)=>{
             } else {
                 const ciphertext= CryptoJS.AES.encrypt(ActorPassword,'secret key 123').toString();
                 console.log(ciphertext)
-                const newActor = new Actor({UserName,ActorEmail,Gender,Age,Height,Weight,ActorPassword });
+                const newActor = new Actor({UserName,ActorEmail,Gender,Age,Height,Weight,ActorPassword:ciphertext });
                 const savedActor = await newActor.save();
                 res.json({message:"Done" , newActor});
             }
