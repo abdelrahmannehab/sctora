@@ -15,9 +15,9 @@ const CompanyRegisterValidators = {
 }
 
 const CompanyLoginValidators={
-    body: Joi.object().required().keys({
-        CompanyEmail: Joi.string().required().email(),
-        CompanyPassword:Joi.string().required().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$'))
+    body: Joi.object().keys({
+        CompanyEmail: Joi.string().email(),
+        CompanyPassword:Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$'))
     })
 }
 const CompanyUpdateValidators = {
