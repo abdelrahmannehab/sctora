@@ -1,4 +1,5 @@
 const Actor = require('../Model/actor.model');
+const CryptoJS = require("crypto-js");
 
 
 const getAllActorsHandlr = async (req,res)=>{
@@ -48,16 +49,16 @@ const updateActorHandlr = async (req,res)=>{
 }
 
 
-const addActorHandlr = async (req,res) =>{
-    const {UserName,ActorEmail,Gender,Age,Height,Weight,ActorPassword} = req.body;
-    try {
-        const newActor= new Actor({UserName,ActorEmail,Gender,Age,Height,Weight,ActorPassword});
-        const data = await newActor.save();
-        res.json({message:"Created Success", data})
-    } catch (error) {
-        res.json({message:"Error!", error});
-    }
-}
+// const addActorHandlr = async (req,res) =>{
+//     const {UserName,ActorEmail,Gender,Age,Height,Weight,ActorPassword} = req.body;
+//     try {
+//         const newActor= new Actor({UserName,ActorEmail,Gender,Age,Height,Weight,ActorPassword});
+//         const data = await newActor.save();
+//         res.json({message:"Created Success", data})
+//     } catch (error) {
+//         res.json({message:"Error!", error});
+//     }
+// }
 
 const ActorRegistration = async (req,res)=>{
     const { UserName,ActorEmail,Gender,Age,Height,Weight,ActorPassword,ActorConfirmPassword  } = req.body;
@@ -70,8 +71,10 @@ const ActorRegistration = async (req,res)=>{
             if (ActorExist) {
                res.json({message:"in-valied Actor already exist"})
             } else {
+                const ciphertext= CryptoJS.AES.encrypt(ActorPassword,'secret key 123').toString();
+                console.log(ciphertext)
                 const newActor = new Actor({UserName,ActorEmail,Gender,Age,Height,Weight,ActorPassword });
-                //const savedActor = await newActor.save();
+                const savedActor = await newActor.save();
                 res.json({message:"Done" , newActor});
             }
         } else {
@@ -107,7 +110,7 @@ const ActorLogin = async (req,res)=>{
 module.exports = {
     getAllActorsHandlr,
     updateActorHandlr,
-    addActorHandlr,
+    //addActorHandlr,
     ActorRegistration,
     ActorLogin,
 }
