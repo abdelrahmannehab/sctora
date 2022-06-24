@@ -98,8 +98,8 @@ const CompanyRegistration = async (req,res)=>{
                 const ciphertext =CryptoJS.AES.encrypt(CompanyPassword, 'secret key 123').toString();
                 console.log(ciphertext);
                 const newComapny = new Company({CompanyName,CompanyManagerName,CompanyAddress,CompanyEmail,CompanyPassword:ciphertext});
-                //const savedCompany = await newComapny.save();
-               res.json({message:"Done" , newComapny});
+                const savedCompany = await newComapny.save();
+               res.json({message:"Done" , savedCompany});
             }
         } else {
             res.json({message:"Password doesn't match"});
