@@ -13,7 +13,7 @@ router.get("/actors",getAllActorsHandlr);
 router.get("/actor/:id",getAllActorsHandlr);
 //router.post("/actors",addActorHandlr);
 router.post("/actors",handlerValidation(ActorRegisterValidators),ActorRegistration);
-router.post("/actors",handlerValidation(ActorLoginValidators),ActorLogin);
+router.post("/actorsLogin",handlerValidation(ActorLoginValidators),ActorLogin);
 router.patch("/actors/:id", handlerValidation(ActorUpdateValidators),updateActorHandlr);
 
 
