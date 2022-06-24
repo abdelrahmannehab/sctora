@@ -69,20 +69,20 @@ const updateCompanyHandlr = async (req,res) => {
 
 
 
-const addCompanyHandlr = async (req,res) => {
-    const { CompanyName,CompanyManagerName,CompanyAddress,CompanyEmail,CompanyPassword} =  req.body;
-    try{
+// const addCompanyHandlr = async (req,res) => {
+//     const { CompanyName,CompanyManagerName,CompanyAddress,CompanyEmail,CompanyPassword} =  req.body;
+//     try{
         
-        const newComapny = new Company({CompanyName,CompanyManagerName,CompanyAddress,CompanyEmail,CompanyPassword});
-        const data = await newComapny.save();
+//         const newComapny = new Company({CompanyName,CompanyManagerName,CompanyAddress,CompanyEmail,CompanyPassword});
+//         const data = await newComapny.save();
         
-        //const data = await Company.insertMany({companyName,email});
-        res.json({message : "Created success" , data});
+//         //const data = await Company.insertMany({companyName,email});
+//         res.json({message : "Created success" , data});
 
-    } catch (error) {
-        res.json({message : "Error" , error});
-    }
-}
+//     } catch (error) {
+//         res.json({message : "Error" , error});
+//     }
+// }
 
 const CompanyRegistration = async (req,res)=>{
     const { CompanyName,CompanyManagerName,CompanyAddress,CompanyEmail,CompanyPassword,CompanyConfirmPassword  } = req.body;
