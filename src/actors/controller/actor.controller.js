@@ -91,7 +91,10 @@ const ActorLogin = async (req,res)=>{
     const ActorExist = await Actor.findOne({ActorEmail})
     try {
         if (ActorExist) {
-            if (ActorExist.ActorPassword == ActorPassword) {
+
+            const DBConvertpassword = CryptoJS.AES.decrypt(ActorExist.ActorPassword , 'secret key 123').toString(CryptoJS.enc.Utf8);
+
+            if (DBConvertpassword == ActorPassword) {
                 res.json({message:"Done"})
             }else{
                 res.json({message:"in-valid password"})
