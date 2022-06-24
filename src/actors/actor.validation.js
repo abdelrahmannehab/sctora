@@ -17,9 +17,9 @@ const ActorRegisterValidators = {
 }
 
 const ActorLoginValidators={
-    body: Joi.object().required().keys({
-        ActorEmail: Joi.string().required().email(),
-        ActorPassword:Joi.string().required().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$'))
+    body: Joi.object().keys({
+        ActorEmail: Joi.string().email(),
+        ActorPassword:Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$'))
     })
 }
 const ActorUpdateValidators = {
