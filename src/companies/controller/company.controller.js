@@ -135,7 +135,7 @@ const CompanyLogin = async (req,res)=>{
 
 module.exports = {
     getAllCompaniesHandlr,
-    addCompanyHandlr,
+    //addCompanyHandlr,
     updateCompanyHandlr,
     CompanyRegistration,
     CompanyLogin,
