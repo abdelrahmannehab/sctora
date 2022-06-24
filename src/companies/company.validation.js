@@ -26,7 +26,7 @@ const CompanyUpdateValidators = {
         CompanyManagerName: Joi.string().required(),
         CompanyAddress: Joi.string().required(),
         CompanyEmail: Joi.string().required(),
-        CompanyPassword: Joi.string().required().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
+        CompanyPassword: Joi.string().required().pattern(new RegExp('^[a-zA-Z0-9]@{3,30}$')),
       
     }),
     params: Joi.object().required().keys({
