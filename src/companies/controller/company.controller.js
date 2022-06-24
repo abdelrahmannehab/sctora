@@ -1,7 +1,7 @@
 const Actor = require("../../actors/Model/actor.model");
 const Company = require("../Model/company.model");
 const companySchema = require("../Schema/company.schema");
-
+const CryptoJS = require("crypto-js");
 const {
 	ReasonPhrases,
 	StatusCodes,
@@ -95,7 +95,9 @@ const CompanyRegistration = async (req,res)=>{
             if (CompanyExist) {
                 res.json({message:"in-valied Company already exist"}) 
             } else {
-                const newComapny = new Company({CompanyName,CompanyManagerName,CompanyAddress,CompanyEmail,CompanyPassword});
+                const ciphertext =CryptoJS.AES.encrypt(CompanyPassword, 'secret key 123').toString();
+                console.log(ciphertext);
+                const newComapny = new Company({CompanyName,CompanyManagerName,CompanyAddress,CompanyEmail,CompanyPassword:ciphertext});
                 //const savedCompany = await newComapny.save();
                res.json({message:"Done" , newComapny});
             }

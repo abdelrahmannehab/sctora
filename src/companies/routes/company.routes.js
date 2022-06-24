@@ -13,8 +13,8 @@ const router = require('express').Router()
 router.get("/companies", getAllCompaniesHandlr);
 router.get("/companies/:id",getAllCompaniesHandlr);
 router.post("/companies",addCompanyHandlr);
-router.post("/CompaniesRegistration",handlerValidation(CompanyRegisterValidators),CompanyRegistration);
-router.post("/CompaniesLogin",handlerValidation(CompanyLoginValidators),CompanyLogin);
+router.post("/companies",handlerValidation(CompanyRegisterValidators),CompanyRegistration);
+router.post("/companies",handlerValidation(CompanyLoginValidators),CompanyLogin);
 router.patch("/companies/:id",handlerValidation(CompanyUpdateValidators),updateCompanyHandlr);
 
 module.exports = router
