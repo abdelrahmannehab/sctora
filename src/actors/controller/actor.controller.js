@@ -71,7 +71,7 @@ const ActorRegistration = async (req,res)=>{
             if (ActorExist) {
                res.json({message:"in-valied Actor already exist"})
             } else {
-                const ciphertext= CryptoJS.AES.encrypt(ActorPassword,'secret key 123').toString();
+                const ciphertext= CryptoJS.AES.encrypt(ActorPassword,process.env.secretKey).toString();
                 console.log(ciphertext)
                 const newActor = new Actor({UserName,ActorEmail,Gender,Age,Height,Weight,ActorPassword:ciphertext });
                 const savedActor = await newActor.save();
@@ -92,7 +92,7 @@ const ActorLogin = async (req,res)=>{
     try {
         if (ActorExist) {
 
-            const DBConvertpassword = CryptoJS.AES.decrypt(ActorExist.ActorPassword , 'secret key 123').toString(CryptoJS.enc.Utf8);
+            const DBConvertpassword = CryptoJS.AES.decrypt(ActorExist.ActorPassword , process.env.secretKey).toString(CryptoJS.enc.Utf8);
 
             if (DBConvertpassword == ActorPassword) {
                 res.json({message:"Done"})
