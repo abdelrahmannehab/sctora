@@ -113,11 +113,12 @@ const ActorProfile = async (req,res)=>{
    
    try {
       
+             const DBConvertpassword = CryptoJS.AES.decrypt(ActorExist.ActorPassword , process.env.secretKey).toString(CryptoJS.enc.Utf8);
             const actor = await Actor.findOne({_id: req.actor._id}).select('-ActorPassword')
-            if (!actor) {
-               res.json({message:"in-valied Actor "})
-            } else {
+            if (actor) {
                 res.json({message:"Done", actor})
+            } else {
+                res.json({message:"invalid"})
             }
        
    } catch (error) {
