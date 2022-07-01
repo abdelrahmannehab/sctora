@@ -16,6 +16,8 @@ const auth = ()=>{
             const decoded = jwt.verify(token, process.env.secretKey)
             const actor = await Actor.findOne({_id:decoded._id}).select("-ActorPassword")
             if (!actor) {
+                console.log(headerToken);
+
                 res.json({message:"in-valid token data"})
             }else{
                 req.actor = actor;
