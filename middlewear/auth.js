@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const actor = require("../src/actors/Model/actor.model");
+const Actor = require("../src/actors/Model/actor.model");
 
 
 
@@ -14,7 +14,7 @@ const auth = ()=>{
         } else {
             const token = headerToken.split(" ")[1]
             const decoded = jwt.verify(token, process.env.secretKey)
-            const actor = await actor.findOne({_id:decoded.id}).select("-ActorPassword")
+            const actor = await Actor.findOne({_id:decoded.id}).select("-ActorPassword")
             if (!actor) {
                 res.json({message:"in-valid token data"})
             }else{

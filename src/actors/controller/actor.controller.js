@@ -1,4 +1,4 @@
-const actor = require('../Model/actor.model');
+const Actor = require('../Model/actor.model');
 const CryptoJS = require("crypto-js");
 const jwt = require('jsonwebtoken');
 
@@ -11,7 +11,7 @@ const getAllActorsHandlr = async (req,res)=>{
                 const data = await actor.find({userName:{$regex : searchKey}})
                 res.json({message: "Success" , data})
             } else {
-                const data = await actor.find({})
+                const data = await Actor.find({})
                 res.json({message: "success" , data})
             }
     } catch (error) {
@@ -40,7 +40,7 @@ const getActorByIdHandlr = async (req,res)=>{
 const updateActorHandlr = async (req,res)=>{
     const {UserName,ActorEmail,Gender,Age,Height,Weight,ActorPassword} = req.body;
     try {
-        await actor.findByIdAndUpdate({_id : req.params.id}, {UserName,ActorEmail,Gender,Age,Height,Weight,ActorPassword},{new:true});
+        await Actor.findByIdAndUpdate({_id : req.params.id}, {UserName,ActorEmail,Gender,Age,Height,Weight,ActorPassword},{new:true});
         const updateActorHandlr = await Actor.findOne({ _id : req.params.id });
         res.json({message:"Updated Success" , data: updateActorHandlr.UserName});
 
@@ -74,7 +74,7 @@ const ActorRegistration = async (req,res)=>{
             } else {
                 const ciphertext= CryptoJS.AES.encrypt(ActorPassword,process.env.secretKey).toString();
                 console.log(ciphertext)
-                const newActor = new actor({UserName,ActorEmail,Gender,Age,Height,Weight,ActorPassword:ciphertext });
+                const newActor = new Actor({UserName,ActorEmail,Gender,Age,Height,Weight,ActorPassword:ciphertext });
                 const savedActor = await newActor.save();
                 res.json({message:"Done" , newActor});
             }
@@ -89,14 +89,14 @@ const ActorRegistration = async (req,res)=>{
 
 const ActorLogin = async (req,res)=>{
     const {ActorEmail,ActorPassword} = req.body;
-    const ActorExist = await actor.findOne({ActorEmail})
+    const ActorExist = await Actor.findOne({ActorEmail})
     try {
         if (ActorExist) {
 
             const DBConvertpassword = CryptoJS.AES.decrypt(ActorExist.ActorPassword , process.env.secretKey).toString(CryptoJS.enc.Utf8);
 
             if (DBConvertpassword == ActorPassword) {
-                const token = jwt.sign({id:actor.id, isLoggedIn: true}, process.env.secretKey, {expiresIn:3600})
+                const token = jwt.sign({id:Actor.id, isLoggedIn: true}, process.env.secretKey, {expiresIn:3600})
                 res.json({message:"Done", token})
             }else{
                 res.json({message:"in-valid password"})
