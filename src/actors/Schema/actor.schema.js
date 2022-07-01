@@ -1,3 +1,4 @@
+const { string } = require('joi');
 const mongoose = require('mongoose');
 
 const{Schema} = mongoose
@@ -9,7 +10,9 @@ const actorSchema = new Schema ({
     Age: {type: String , required: true},
     Weight: {type: String , required: true},
     Height: {type: String , required: true},
-    ActorPassword: {type: String , required: true}
+    ActorPassword: {type: String , required: true},
+    ActorPhoneNumber: {type: String},
+    ActorProfilePIc:{type:String}
 },{
     timestamps: true
 });
