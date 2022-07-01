@@ -12,7 +12,7 @@ const actorSchema = new Schema ({
     Height: {type: String , required: true},
     ActorPassword: {type: String , required: true},
     ActorPhoneNumber: {type: String},
-    ActorProfilePIc:{type:String}
+    ActorProfilePic:{type:String}
 },{
     timestamps: true
 });
