@@ -1,10 +1,28 @@
+const jwt = require("jsonwebtoken");
+const Actor = require("../src/actors/Model/actor.model");
 
 
 
-const auth = async(req,res,next)=>{
+const auth = ()=>{
 
-        const authorization = req.headers['Authorization']; 
-        console.log(authorization);
+    return async (req,res,next) =>{
+        const headerToken = req.headers['authorization']; 
+        console.log(headerToken);
+
+        if (!headerToken || headerToken == null || headerToken == undefined || !headerToken.startsWith('Bearer')) {
+            res.json({message: "in-valied headerToken"})
+        } else {
+            const token = headerToken.split(" ")[1]
+            const decoded = jwt.verify(token, process.env.secretKey)
+            const actor = await Actor.findOne({_id:decoded.id}).select("-ActorPassword")
+            if (!actor) {
+                res.json({message:"in-valid token data"})
+            }else{
+                req.actor = actor;
+                next()
+            }
+        }
+    }
 }
 
 module.exports = {

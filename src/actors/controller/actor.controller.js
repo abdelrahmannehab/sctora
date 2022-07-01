@@ -109,6 +109,22 @@ const ActorLogin = async (req,res)=>{
     }
 }
 
+const ActorProfile = async (req,res)=>{
+   
+   try {
+      
+            const actor = await Actor.findOne({_id: req.actor._id}).select('-ActorPassword')
+            if (!actor) {
+               res.json({message:"in-valied Actor "})
+            } else {
+                res.json({message:"Done", actor})
+            }
+       
+   } catch (error) {
+    res.json(error.message);
+   }
+}
+
 
 
 
@@ -118,4 +134,5 @@ module.exports = {
     //addActorHandlr,
     ActorRegistration,
     ActorLogin,
+    ActorProfile,
 }
