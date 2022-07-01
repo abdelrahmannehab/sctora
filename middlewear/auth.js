@@ -1,12 +1,10 @@
 
 
 
-const auth = ()=>{
+const auth = async(req,res,next)=>{
 
-    return(req,res,next) =>{
-        const headerToken = req.headers['authorization']; 
-        console.log(headerToken);
-    }
+        const authorization = req.headers['Authorization']; 
+        console.log(authorization);
 }
 
 module.exports = {
