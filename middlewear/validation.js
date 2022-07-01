@@ -1,37 +1,22 @@
-
-const headerMethods = ['body','params','query']
-
-const handlerValidation = (schema)=>{
-   return (req,res,next)=>{
-    
-
-    let validation = []
+const handelValidation = ()=>{
 
 
+    return(req,res,next) =>{
+       try {
+        const validationError = validationResult(req )
 
-    headerMethods.forEach((key)=>{
-        if (schema[key]) {
+        if (validationError.isEmpty()) {
+            next()
 
-            const validationResult = schema[key].validate(req[key])
-
-            if (validationResult.error) {
-            validation.push(validationResult.error.details[0])
+        } else{
+           res.json({message: "Validation error" , error: validationResult.errors})
         }
+
+       } catch (error) {
+       res.json({message: "Server error" , error})
+       }
+ 
     }
-        
-    })
-
-
-
-    if (validation.length) {
-        res.status(400).json({meesage:"Please enter valid data" , err: validation})
-    } else{
-        next()
-    }
-
-
-   }
-    
 }
 
-module.exports = handlerValidation
+module.exports = {handelValidation}

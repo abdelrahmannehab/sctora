@@ -12,9 +12,9 @@ const router = require('express').Router()
 router.get("/actors",getAllActorsHandlr);
 router.get("/actor/:id",getAllActorsHandlr);
 //router.post("/actors",addActorHandlr);
-router.post("/actors",handlerValidation(ActorRegisterValidators),ActorRegistration);
-router.post("/actorsLogin",handlerValidation(ActorLoginValidators),ActorLogin);
-router.patch("/actors/:id", handlerValidation(ActorUpdateValidators),updateActorHandlr);
+router.post("/actors/register",ActorRegisterValidators,handlerValidation(),ActorRegistration);
+router.post("/actorsLogin",ActorLogin);
+router.patch("/actors/:id",updateActorHandlr);
 
 
 module.exports = router
