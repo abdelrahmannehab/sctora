@@ -19,7 +19,7 @@ const auth = ()=>{
       
                 res.json({message:"in-valid token data"})
             }else{
-                req.actor = actor;
+                req.actor = Actor;
                 next()
             }
         }
