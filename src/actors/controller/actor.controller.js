@@ -1,5 +1,6 @@
 const Actor = require('../Model/actor.model');
 const CryptoJS = require("crypto-js");
+const jwt = require('jsonwebtoken');
 
 
 const getAllActorsHandlr = async (req,res)=>{
@@ -95,7 +96,8 @@ const ActorLogin = async (req,res)=>{
             const DBConvertpassword = CryptoJS.AES.decrypt(ActorExist.ActorPassword , process.env.secretKey).toString(CryptoJS.enc.Utf8);
 
             if (DBConvertpassword == ActorPassword) {
-                res.json({message:"Done"})
+                const token = jwt.sign({id:Actor.id, isLoggedIn: true}, process.env.secretKey, {expiresIn:3600})
+                res.json({message:"Done", token})
             }else{
                 res.json({message:"in-valid password"})
             }
