@@ -96,7 +96,7 @@ const ActorLogin = async (req,res)=>{
             const DBConvertpassword = CryptoJS.AES.decrypt(ActorExist.ActorPassword , process.env.secretKey).toString(CryptoJS.enc.Utf8);
 
             if (DBConvertpassword == ActorPassword) {
-                const token = jwt.sign({id:Actor.id, isLoggedIn: true}, process.env.secretKey, {expiresIn:3600})
+                const token = jwt.sign({id:actor.id, isLoggedIn: true}, process.env.secretKey, {expiresIn:3600})
                 res.json({message:"Done", token})
             }else{
                 res.json({message:"in-valid password"})
