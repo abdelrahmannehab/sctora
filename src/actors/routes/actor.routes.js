@@ -15,9 +15,7 @@ router.get("/actor/:id",getAllActorsHandlr);
 //router.post("/actors",addActorHandlr);
 router.post("/actors/register",handlerValidation(ActorRegisterValidators),ActorRegistration);
 router.post("/actors/login",handlerValidation(ActorLoginValidators),ActorLogin);
-router.get("/actors/profile",auth(),(req,res)=>{
-    
-})
+router.get("/actors/profile",auth);
 router.patch("/actors/:id", handlerValidation(ActorUpdateValidators),updateActorHandlr);
 
 
