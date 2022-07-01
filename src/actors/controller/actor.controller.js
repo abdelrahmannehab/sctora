@@ -113,7 +113,7 @@ const ActorProfile = async (req,res)=>{
    
    try {
       
-            const actor = await actor.findOne({_id: req.actor._id}).select('-ActorPassword')
+            const actor = await Actor.findOne({_id: req.actor._id}).select('-ActorPassword')
             if (!actor) {
                res.json({message:"in-valied Actor "})
             } else {
