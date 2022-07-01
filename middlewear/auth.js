@@ -32,8 +32,13 @@
 const jwt = require('jsonwebtoken');
 const Actor = require("../src/actors/Model/actor.model");
 
+const roles = {
+    Actor:"Actor",
+    Company:"Company",
+    Admin:"Admin"
+}
 
-const auth = () => {
+const auth = (data) => {
 
     return async(req, res, next) => {
         try {
@@ -49,8 +54,14 @@ const auth = () => {
                 if (!actor) {
                     res.json({ message: "in-valid token data" })
                 } else {
-                    req.actor = actor;
-                    next()
+
+                    if(data.includes(actor.role))  {
+                        req.actor = actor;
+                        next()
+                    } else{
+                        res.json({message:"Sorry you're not authorized"});
+                    }             
+                    
                 }
 
             }
@@ -63,5 +74,6 @@ const auth = () => {
 
 
 module.exports = {
-    auth
+    auth,
+    roles
 }
