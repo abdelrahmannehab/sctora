@@ -1,23 +1,3 @@
-// const postModel = require("../../../DB/model/Post");
-
-// const createPost = async(req,res)=>{
-
-
-//     let imageURL = []
-//     if(req.files){
-//         for (let i = 0; i < req.files.length; i++) {
-//             let imagePath = `${req.protocol}://${req.headers.host}/${req.files[i].destination}/${req.files[i].filename}`
-//             imageURL.push(imagePath)
-//         }
-//     }
-//     const {desc} = req.body;
-// }
-
-
-
-
-// module.exports = createPost
-
 const postModel = require("../../../DB/model/Post");
 const actorModel = require("../../../DB/model/Actor");
 
