@@ -1,8 +1,7 @@
 
 const jwt = require("jsonwebtoken");
 const actorModel = require("../DB/model/Actor");
-
-
+const companyModel = require("../DB/model/Company");
 
 
 
@@ -25,7 +24,13 @@ const auth = () => {
                         req.actor = actor;
                         next();
                     }
-                    
+                const company = await companyModel.findOne({ _id: decoded.id }).select("-CompanyPassword")
+                if (!company) {
+                        res.json({ message: "in-valid token data" })
+                    } else {
+                            req.company = company;
+                            next();
+                        }
 
             }
         } catch (error) {
