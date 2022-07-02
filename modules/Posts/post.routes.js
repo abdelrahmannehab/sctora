@@ -1,5 +1,5 @@
 const { auth } = require("../../middlewear/auth");
-const { createPost, likePost } = require("./controller/post");
+const { createPost, likePost } = require("./Controller/post");
 
 
 const router = require("express").Router();
