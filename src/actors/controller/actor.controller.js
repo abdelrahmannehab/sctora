@@ -8,7 +8,7 @@ const getAllActorsHandlr = async (req,res)=>{
     const {searchKey} = req.query ;
     try {
              if (searchKey){
-                const data = await actor.find({userName:{$regex : searchKey}})
+                const data = await Actor.find({userName:{$regex : searchKey}})
                 res.json({message: "Success" , data})
             } else {
                 const data = await Actor.find({})

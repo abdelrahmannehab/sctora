@@ -1,4 +1,5 @@
 const { string } = require('joi');
+const bcrypt = require('bcrypt')
 const mongoose = require('mongoose');
 
 const{Schema} = mongoose
@@ -17,6 +18,9 @@ const actorSchema = new Schema ({
     timestamps: true
 });
 
-
+actorSchema.pre("save" , async function(next){
+    this.ActorPassword = await bcrypt.hash(this.ActorPassword, parseInt( process.env.SALT))
+    next();
+})
 
 module.exports = actorSchema;
